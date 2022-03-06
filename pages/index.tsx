@@ -1,20 +1,17 @@
-import React, { useState } from "react";
-import { Button, Center, VStack, Heading, Link } from "@chakra-ui/react";
+import { VStack, Heading, Link } from "@chakra-ui/react";
 import { default as NextLink } from "next/link";
+import HomeBackground from "../components/home-background";
 
 const HomePage: React.FC = () => {
-  const [likes, setLikes] = useState(0);
-
   return (
-    <Center>
+    <HomeBackground>
       <VStack spacing={4}>
         <Heading>Test Heading</Heading>
         <NextLink href="/posts/first-post">
           <Link>First Post</Link>
         </NextLink>
-        <Button onClick={() => setLikes(likes + 1)}>Like ({likes})</Button>
       </VStack>
-    </Center>
+    </HomeBackground>
   );
 };
 
