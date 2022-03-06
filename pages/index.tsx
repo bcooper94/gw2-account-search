@@ -1,15 +1,25 @@
 import { VStack, Heading, Link } from "@chakra-ui/react";
 import { default as NextLink } from "next/link";
 import HomeBackground from "../components/home-background";
+import { getAllPostIds, PostId } from "../lib/posts";
 
-const HomePage: React.FC = () => {
+interface HomePageProps {
+  postIds: PostId[];
+}
+
+const HomePage: React.FC<HomePageProps> = ({ postIds }) => {
+  const postIdLinks = postIds.map((postId) => {
+    return (
+      <NextLink href={`/posts/${postId.params.id}`}>
+        <Link>{postId.params.id}</Link>
+      </NextLink>
+    );
+  });
   return (
     <HomeBackground>
       <VStack spacing={4}>
         <Heading>Test Heading</Heading>
-        <NextLink href="/posts/first-post">
-          <Link>First Post</Link>
-        </NextLink>
+        {postIdLinks}
       </VStack>
     </HomeBackground>
   );
@@ -18,7 +28,10 @@ const HomePage: React.FC = () => {
 export default HomePage;
 
 export async function getStaticProps(context) {
+  const postIds = getAllPostIds();
   return {
-    props: {},
+    props: {
+      postIds,
+    },
   };
 }
